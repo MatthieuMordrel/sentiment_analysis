@@ -15,7 +15,6 @@ logging.basicConfig(level=logging.INFO)
 # Initialize the FastAPI app
 app = FastAPI()
 
-# Define constants for the News API key and URL
 # Calls load_dotenv(): This function reads the .env file located in the root directory of your project and loads the environment variables defined in that file into the environment. This allows you to access these variables using os.getenv() or os.environ.
 load_dotenv()
 NEWS_API_KEY = os.getenv('NEWS_API_KEY')  # Replace with your News API key
@@ -55,18 +54,34 @@ def search_news(request: SearchRequest):
         'searchIn': request.searchIn,
         "language": request.language,
         'apiKey': NEWS_API_KEY,
+        "page": 1 #Always return the first page to avoid bloating the number of requests (i.e. will return max 100 articles for each request)
     }
-    # Make a GET request to the News API
+    # Make a GET request to the News API which return a Response object including status code, headers and response body
     response = requests.get(NEWS_API_URL, params=params)
     # Raise an HTTPException if the response status code is not 200
     if response.status_code != 200:
         raise HTTPException(status_code=response.status_code, detail=response.json())
 
-    # Extract articles from the response and analyze their sentiment
-    articles = response.json().get('articles', [])
+    # Extract articles and total results from the response
+    response_data = response.json()
+    total_results = response_data.get('totalResults', 0)
+
+    # Check if no articles were found
+    if total_results == 0:
+        raise HTTPException(status_code=404, detail="No articles correspond to your search") #Using a 404 request to inform client that no articles were fetched and exiting code
+
+    articles = response_data.get('articles', [])
+    page_size = len(articles)
+    total_pages = (total_results // page_size) + (1 if total_results % page_size > 0 else 0)
+    # Log the number of articles and the number of pages
+    logging.info(f"Number of articles: {total_results}, Number of pages: {total_pages}")
+
+    # Analyze sentiment of each article
     for article in articles:
         article['sentiment'] = analyze_sentiment(article['description'] or '')
 
+    # Log the response object
+    # logging.info(f"Response: {response_data}")
 
     # Return the articles with their sentiment analysis
     return {'articles': articles}
