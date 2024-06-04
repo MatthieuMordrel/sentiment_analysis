@@ -1,8 +1,4 @@
-// @ts-check
-
-/**
- * @type {import('next').NextConfig}
- */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   rewrites: async () => {
     return [
@@ -15,4 +11,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
