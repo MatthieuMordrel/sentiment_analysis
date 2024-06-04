@@ -9,16 +9,16 @@ export async function POST(request: Request) {
   console.log('The environment is: ', process.env.NODE_ENV);
   try {
     console.log('Entering the try block...');
-    const response = await axios.post(
-      process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000/api/python' : '../api/python',
-      {
-        keywords,
-        fromDate,
-        toDate,
-        searchIn,
-        language,
-      }
-    );
+    const requestPath =
+      process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000/api/python' : './api/python';
+    console.log('Request path:', requestPath);
+    const response = await axios.post(requestPath, {
+      keywords,
+      fromDate,
+      toDate,
+      searchIn,
+      language,
+    });
     return NextResponse.json(response.data); // Return a NextResponse object containing the JSON encoded data in the body
     // The NextResponse.json(data, options) is a special method of Next.js which extends the normal Response.json method.
   } catch (error: any) {
