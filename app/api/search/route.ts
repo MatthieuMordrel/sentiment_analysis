@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   const { keywords, fromDate, toDate, searchIn, language } = await request.json(); // We destructured the object received by the request
   // console.log(language);
   try {
-    const response = await axios.post('http://localhost:8000/search', {
+    const response = await axios.post('http://localhost:8000/api/python', {
       // Uses fetch under the hood, resolves to a response object
       keywords,
       fromDate,
@@ -21,9 +21,15 @@ export async function POST(request: Request) {
 
     // Handle 404 error specifically
     if (error.response?.status === 404) {
-      return NextResponse.json({ error: 'No articles found for the given search criteria' }, { status: 404 });
+      return NextResponse.json(
+        { error: 'No articles found for the given search criteria' },
+        { status: 404 }
+      );
     }
 
-    return NextResponse.json({ error: 'Error fetching articles' }, { status: error.response?.status || 500 });
+    return NextResponse.json(
+      { error: 'Error fetching articles' },
+      { status: error.response?.status || 500 }
+    );
   }
 }

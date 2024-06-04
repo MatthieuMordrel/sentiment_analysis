@@ -39,7 +39,7 @@ def analyze_sentiment(text):
     return blob.sentiment.polarity
 
 # Define a POST endpoint for searching news
-@app.post("/search")
+@app.post("/api/python")
 # app is an instance of FastAPI. This instance is created when you initialize your FastAPI application, typically with app = FastAPI().
 
 def search_news(request: SearchRequest):
