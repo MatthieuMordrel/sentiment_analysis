@@ -5,16 +5,19 @@ import axios from 'axios';
 export async function POST(request: Request) {
   const { keywords, fromDate, toDate, searchIn, language } = await request.json(); // We destructured the object received by the request
   console.log('Search parameters :', keywords, fromDate, toDate, searchIn, language);
+  console.log('Key is correctly defined as', process.env.NEWS_API_KEY);
   try {
-    console.log('trying...');
-    const response = await axios.post('http://localhost:8000/api/python', {
-      // Uses fetch under the hood, resolves to a response object 'http://localhost:8000/api/python'
-      keywords,
-      fromDate,
-      toDate,
-      searchIn,
-      language,
-    });
+    console.log('Entering the try block...');
+    const response = await axios.post(
+      process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000/api/python' : '/api/python',
+      {
+        keywords,
+        fromDate,
+        toDate,
+        searchIn,
+        language,
+      }
+    );
     return NextResponse.json(response.data); // Return a NextResponse object containing the JSON encoded data in the body
     // The NextResponse.json(data, options) is a special method of Next.js which extends the normal Response.json method.
   } catch (error: any) {

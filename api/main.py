@@ -83,3 +83,7 @@ def search_news(request: SearchRequest):
 
     # Return the articles with their sentiment analysis
     return {'articles': articles}
+
+@app.get("/api/python")
+def get_info():
+    return {"message": "This is a GET request to the /api/python endpoint"}
