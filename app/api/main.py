@@ -1,6 +1,3 @@
-# app/main.py
-
-# Import necessary modules from FastAPI and other libraries
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import requests
@@ -11,6 +8,7 @@ from dotenv import load_dotenv
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
+logging.info(f"Accessed the python function")
 
 # Initialize the FastAPI app
 app = FastAPI()

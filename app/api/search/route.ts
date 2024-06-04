@@ -4,10 +4,11 @@ import axios from 'axios';
 
 export async function POST(request: Request) {
   const { keywords, fromDate, toDate, searchIn, language } = await request.json(); // We destructured the object received by the request
-  // console.log(language);
+  console.log('Search parameters :', keywords, fromDate, toDate, searchIn, language);
   try {
+    console.log('trying...');
     const response = await axios.post('http://localhost:8000/api/python', {
-      // Uses fetch under the hood, resolves to a response object
+      // Uses fetch under the hood, resolves to a response object 'http://localhost:8000/api/python'
       keywords,
       fromDate,
       toDate,
