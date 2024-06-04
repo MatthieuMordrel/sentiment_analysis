@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "api": "cmd /c \"venv\\Scripts\\activate && uvicorn app.api.main:app --reload\""
+    "api": "cmd /c \"venv\\Scripts\\activate && uvicorn api.main:app --reload\""
   },
   "dependencies": {
     "autoprefixer": "^10.4.19",
