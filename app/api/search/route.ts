@@ -6,10 +6,11 @@ export async function POST(request: Request) {
   const { keywords, fromDate, toDate, searchIn, language } = await request.json(); // We destructured the object received by the request
   console.log('Search parameters :', keywords, fromDate, toDate, searchIn, language);
   console.log('Key is correctly defined as', process.env.NEWS_API_KEY);
+  console.log('The environment is: ', process.env.NODE_ENV);
   try {
     console.log('Entering the try block...');
     const response = await axios.post(
-      process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000/api/python' : '/api/python',
+      process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000/api/python' : '../api/python',
       {
         keywords,
         fromDate,
