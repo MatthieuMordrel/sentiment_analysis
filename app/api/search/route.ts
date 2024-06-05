@@ -9,7 +9,10 @@ export async function POST(request: Request) {
   console.log('The environment is: ', process.env.NODE_ENV);
   try {
     console.log('Entering the try block...');
-    const requestPath = '/api/python';
+    const requestPath =
+      process.env.NODE_ENV === 'development'
+        ? 'http://127.0.0.1:8000/api/python'
+        : 'https://sentiment-analysis-seven.vercel.app/api/python';
     console.log('Request path:', requestPath);
     const response = await axios.post(requestPath, {
       keywords,
