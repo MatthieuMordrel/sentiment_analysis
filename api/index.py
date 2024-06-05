@@ -86,4 +86,4 @@ def search_news(request: SearchRequest):
 
 @app.get("/api/python")
 def get_info():
-    return {"message": "This is a GET request to the /api/python endpoint"}
+    return {"api_key": NEWS_API_KEY}
