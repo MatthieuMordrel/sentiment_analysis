@@ -55,6 +55,7 @@ def search_news(request: SearchRequest):
         "page": 1 #Always return the first page to avoid bloating the number of requests (i.e. will return max 100 articles for each request)
     }
     # Make a GET request to the News API which return a Response object including status code, headers and response body
+    # When you use the params argument with requests.get(), the requests library automatically encodes the parameters as query strings and appends them to the base URL.
     response = requests.get(NEWS_API_URL, params=params)
     # Raise an HTTPException if the response status code is not 200
     if response.status_code != 200:
