@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 
 interface Article {
@@ -46,7 +45,8 @@ const Card: React.FC<CardProps> = ({ article, onHoverContent, isHighlighted }) =
         isHighlighted ? 'bg-blue-100' : 'bg-white'
       }`}
       onMouseEnter={() => onHoverContent({ url: article.url, content: article.content })}>
-      <Image src={article.urlToImage} alt={article.title} className='w-32 h-32 object-cover mr-4' />
+      {/*Using img instead of Image because it allows not configuring the cdn host names https://nextjs.org/docs/messages/next-image-unconfigured-host */}
+      <img src={article.urlToImage} alt={article.title} className='w-32 h-32 object-cover mr-4' />
       <div className='flex flex-col justify-center w-[calc(100%-8rem)]'>
         <p className='text-gray-500 mb-2'>
           {formattedDate} - {article.source.name}
