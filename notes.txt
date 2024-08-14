@@ -9,3 +9,6 @@ Add a way to open the content of the article you click on formatted, on the righ
 Sumamrize the content of the article with AI 
 
 Fix centering of some articles without picture 
+
+Branche tags
+- archive/testing-branch
